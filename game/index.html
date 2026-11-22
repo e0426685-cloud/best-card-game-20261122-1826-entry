@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ember Duel — an original card battler</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div class="brand">🔥 EMBER DUEL</div>
+    <div id="turnBanner" class="turn-banner">Your turn</div>
+    <div id="scoreLine" class="score-line">Duels won 0 · Damage dealt 0</div>
+  </header>
+
+  <main id="table">
+    <section id="opponentZone" class="zone">
+      <div class="fighter" id="opponentFighter">
+        <div class="fighter-name">🤖 BRAMBLE — the Thorn Warden</div>
+        <div class="life-row">
+          <span class="life-label">LIFE</span>
+          <div class="life-bar"><div id="opponentLifeFill" class="life-fill foe"></div></div>
+          <span id="opponentLifeText" class="life-text">30 / 30</span>
+        </div>
+        <div class="fighter-stats">
+          <span id="opponentShield" class="stat shield-stat">🛡 Shield 0</span>
+          <span id="opponentEmber" class="stat ember-stat">◆ Ember 3</span>
+          <span id="opponentDeck" class="stat">🂠 Deck 20</span>
+        </div>
+      </div>
+      <div id="opponentHand" class="hand foe-hand" aria-label="Opponent hand"></div>
+    </section>
+
+    <section id="middleRow">
+      <div id="playedArea" class="played-area" aria-label="Cards played this turn"></div>
+      <div id="logPanel" class="log-panel" aria-label="Duel log"></div>
+    </section>
+
+    <section id="playerZone" class="zone">
+      <div class="fighter" id="playerFighter">
+        <div class="fighter-name">🧑 YOU — the Ember Knight</div>
+        <div class="life-row">
+          <span class="life-label">LIFE</span>
+          <div class="life-bar"><div id="playerLifeFill" class="life-fill you"></div></div>
+          <span id="playerLifeText" class="life-text">30 / 30</span>
+        </div>
+        <div class="fighter-stats">
+          <span id="playerShield" class="stat shield-stat">🛡 Shield 0</span>
+          <span id="playerEmber" class="stat ember-stat">◆ Ember 3</span>
+          <span id="playerDeck" class="stat">🂠 Deck 20</span>
+        </div>
+      </div>
+      <div id="playerHand" class="hand your-hand" aria-label="Your hand"></div>
+      <div id="controls">
+        <button id="endTurnBtn" class="btn primary">End Turn ⏎</button>
+        <button id="newDuelBtn" class="btn">New Duel (N)</button>
+        <button id="helpBtn" class="btn">How to play (H)</button>
+      </div>
+      <div id="hint" class="hint">Click a card or press 1–5 to play it · Same-suit cards in one turn resonate: +2 power</div>
+    </section>
+  </main>
+
+  <div id="titleScreen" class="overlay">
+    <div class="title-card">
+      <div class="title-ember">🔥 ◆ ▲ ●</div>
+      <h1>EMBER DUEL</h1>
+      <p class="tagline">Four suits. One ember. Zero mercy.</p>
+      <p class="rules-blurb">
+        You and Bramble the Thorn Warden each hold 30 life and a deck of 24 cards.
+        Spend ember to play cards: Flame burns, Tide mends, Thorn shields, Stone hoards ember.
+        Play two cards of the same suit in one turn and they <b>resonate</b> for +2 power.
+        Reduce Bramble to 0 life before yours runs out.
+      </p>
+      <div class="suit-legend">
+        <span class="legend flame">▲ Flame · damage</span>
+        <span class="legend tide">● Tide · healing</span>
+        <span class="legend thorn">◆ Thorn · shield</span>
+        <span class="legend stone">■ Stone · ember</span>
+      </div>
+      <button id="startBtn" class="btn big primary">▶ Begin the Duel</button>
+      <p class="keys">Mouse: click cards · Keyboard: 1–5 play a card, Enter ends turn, N new duel</p>
+    </div>
+  </div>
+
+  <div id="endScreen" class="overlay hidden">
+    <div class="title-card">
+      <h1 id="endTitle">VICTORY</h1>
+      <p id="endText" class="tagline"></p>
+      <p id="endStats" class="rules-blurb"></p>
+      <button id="againBtn" class="btn big primary">↻ Duel Again</button>
+      <p class="keys">Press R to duel again</p>
+    </div>
+  </div>
+
+  <div id="helpScreen" class="overlay hidden">
+    <div class="title-card">
+      <h1>HOW TO PLAY</h1>
+      <p class="rules-blurb">
+        Each turn you gain ember (up to 10) and draw a card. Click a card — or press its
+        number key — to play it if you can afford its ember cost. Cards resolve at once:
+        damage hits the enemy's shield first, then life. Healing restores life, shield
+        blocks damage, ember cards refill your ember for bigger plays next turn.
+        <br><br><b>Resonance:</b> the second card you play of the same suit in one turn
+        gains +2 to its number. Chain suits to win big.
+        <br><br>Bramble plays after you end your turn. First to 0 life loses.
+      </p>
+      <button id="closeHelpBtn" class="btn big primary">Got it</button>
+    </div>
+  </div>
+
+  <p id="status" role="status" aria-live="polite"></p>
+</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
